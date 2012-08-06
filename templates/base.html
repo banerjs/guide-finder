@@ -1,0 +1,55 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="ROBOTS" content="NOINDEX, NOFOLLOW" />
+    <link rel="shortcut icon" href="{{ MEDIA_URL }}favicon/favicon.ico">
+    <link href="{{ CSS_URL }}base.css" rel="stylesheet" type="text/css" />
+    <link href="{{ CSS_URL }}bootstrap/bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css" />
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript"></script>
+    <script type="text/javascript" src="{{ JS_URL }}bootstrap.min.js"></script>
+
+
+    {% block head0 %}{% endblock %}
+
+
+
+    <script type="text/javascript">
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-23678982-1']);
+      _gaq.push(['_setDomainName', '.theguidefinder.com']);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+    </script>
+  </head>
+
+  {% block script0 %}{% endblock %}
+
+
+  <body id="body">
+  	<div class="container">    	
+      <div class= "span6" id="nav-wrap" >
+        <ul class="nav nav-pills">
+      		<li id="signup" class="active"><a href="{{ DOMAIN }}/register">Sign up</a></li>
+      		<li id="login"><a href="{{ DOMAIN }}/login">Log In</a></li>
+      		<li id="how"><a href="{{ DOMAIN }}/about">How it Works</a></li>
+      		<li id="home"><a href="{{ DOMAIN }}">Home</a></li>
+    	  </ul>
+      </div>
+      
+
+      {% block body0 %}{% endblock %}
+
+
+      <div id="footer">
+        <p id="copyright"><i> &#169 2011 The Guide Finder </i></p>
+      </div>
+    </div>
+  </body>
+</html>

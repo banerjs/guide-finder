@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block head0 %}
+<title>{% if account %}Welcome to the club!{% else %}Brute Force gets you nowhere n00b!{% endif %}</title>
+{% endblock %}
+
+{% block body0 %}
+{% if account %}
+<h2>Congratulations!</h2>
+<h3>Your account has been activated. </b>
+Just <a href="{{ LOGIN_URL }}">click here to login</a> with your new username and password</h3>
+{% else %}
+<h2>Your account has expired due to delayed activation.</h2>
+<h3>Don't worry simply <a href="{{ DOMAIN }}signup">click here</a> to refresh your account creation.</h3>
+{% endif %}
+{% endblock %}

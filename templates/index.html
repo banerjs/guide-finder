@@ -1,0 +1,215 @@
+{% extends "base.html" %}
+
+{% block head0 %}
+{% block head1 %}
+
+<link href="{{ CSS_URL }}index.css" rel="stylesheet" type="text/css" />
+
+<title>TheGuideFinder: Home</title>
+
+<!-- jQuery -->
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.6.1.min.js"></script> 
+
+<!-- jQuery Autocomplete -->
+<script type="text/javascript" src="{{ JS_URL }}jquery.ajaxQueue.js"></script>
+<script type="text/javascript" src="{{ JS_URL }}jquery.bgiframe.min.js"></script>
+<script type="text/javascript" src="{{ JS_URL }}jquery.js"></script>
+<script type="text/javascript" src="{{ JS_URL }}thickbox-compressed.js"></script>
+<script type="text/javascript" src="{{ JS_URL }}jquery.autocomplete.js"></script>
+<link rel="stylesheet" type="text/css" href="{{ CSS_URL }}jquery.autocomplete.css" />
+<script>
+    jq = jQuery.noConflict(true);
+</script>
+<link rel="stylesheet" type="text/css" href="{{ CSS_URL }}thickbox.css" />
+
+<!-- jQuery UI -->
+<link type="text/css" href="{{ CSS_URL }}jquery-ui-1.8.14.custom.css" rel="stylesheet"/>
+<script type="text/javascript" src="{{ JS_URL }}jquery-ui-1.8.14.custom.min.js"></script>
+<script type="text/javascript" src="{{ JS_URL }}jquery.ui.autocomplete.js"></script>
+<script type="text/javascript" src="{{ JS_URL }}jquery.ui.core.js"></script>
+<script type="text/javascript" src="{{ JS_URL }}jquery.ui.position.js"></script>
+<script type="text/javascript" src="{{ JS_URL }}jquery.ui.widget.js"></script>
+
+{% endblock %}
+{% endblock %}
+
+{% block script0 %}
+
+<script type="text/javascript">
+function clickclear(thisfield, defaulttext) {
+if (thisfield.value == defaulttext) {
+    thisfield.value = ""; }
+}
+
+function clickrecall(thisfield, defaulttext) {
+if (thisfield.value == "") {
+    thisfield.value = defaulttext; }
+}
+</script>
+
+<script type = "text/javascript">
+$(function() {
+         var locationTags = [
+	     "Charleston, SC, USA",
+	     "Boston, MA, USA",
+	     "New York City, NY, USA",
+	     "Los Angeles, CA, USA",
+	     "Detroit, MI, USA",
+            "San Diego, CA, USA",
+	     "Florida",
+	     "South Dakota",
+	     "South Carolina",
+	     "Montana",
+	     "Connecticut",
+	     "New York",
+	     "Washington",
+	     "Missouri",
+	     "Dover, DE, USA",
+	     "Brooklyn, NY, USA",
+	     "Miami, FL, USA",
+	     "Minneapolis, MN, USA",
+	     "San Francisco, CA, USA",
+	     "La Jolla, CA, USA",
+	     "Kansas City, MO, USA",
+	     "New Orleans, LA, USA",
+	     "Aberdeen, SD, USA",
+	     "Rapid City, SD, USA",
+	     "Pierre, SD, USA",
+	     "Red Lodge, MT, USA",
+	     "Pittsburgh, PA, USA",
+            "Washington DC, DC, USA",
+	     "Chicago, IL, USA",
+	     "Vancouver, CT, USA",
+            "Hamden, CT, USA",
+            "Portland, WA, USA",
+	     "USA",
+	     "California"
+	     ];
+	 jq("#loc").autocomplete( locationTags, {
+		    minChars: 1,
+		    autoFill: true,
+		    matchContains: false,
+		    scrollHeight: 220
+		   });
+});
+
+
+<!-- Date -->
+$(function() {
+$( "#date" ).datepicker();
+});
+
+//(function( $ ) {
+
+//$( ".ui-autocomplete-input" ).live( "autocompleteopen", function() {
+//    var autocomplete = $( this ).data( "autocomplete" ),
+//        menu = autocomplete.menu;
+
+//    if ( !autocomplete.options.selectFirst ) {
+//        return;
+//    }
+
+//    menu.activate( $.Event({ type: "mouseenter" }), menu.element.children().first() );
+//});
+
+//}( jQuery ));
+
+</script>
+
+<script type="text/javascript">
+$(window).load(function() {
+    $('#slider').nivoSlider();
+});
+</script>
+
+
+{% endblock %}
+
+
+
+
+{% block body0 %}
+
+		<a href="{{ DOMAIN }}"><img id="logo-splash" src="{{ MEDIA_URL }}logo.png"/></a>
+
+		<div id="myCarousel" class="carousel slide">
+		    <!-- Carousel items -->
+		    <div class="carousel-inner">
+		      <div class="active item">
+		        <img alt="" src="{{ MEDIA_URL }}slider/slider1.jpg" />
+		        <div class="carousel-caption"><p>Caption 1</p></div>
+		      </div>
+		      <div class="item">
+		         <img alt="" src="{{ MEDIA_URL }}slider/slider3.jpg" />
+		          <div class="carousel-caption"><p>Caption 2</p></div>
+		      </div>
+		      <div class="item">
+		         <img alt="" src="{{ MEDIA_URL }}slider/slider4.jpg" />
+		          <div class="carousel-caption"><p>Caption 3</p></div>
+		      </div>
+		    </div>
+		    
+		    <!-- Carousel nav -->
+		    <a class="carousel-control left" href="#myCarousel" data-slide="prev">&lsaquo;</a>
+		    <a class="carousel-control right" href="#myCarousel" data-slide="next">&rsaquo;</a>
+	  	</div>
+        
+		<div id="wrap">
+		<form id="search_form" action="{{ DOMAIN }}display/" method="get">
+
+		<!-- Location -->
+		<div class = "ui-widget">
+		<input id = "loc" type= "text" name="loc"
+		 value = " Where do you want to fish?"
+		 onfocus="clickclear(this, ' Where do you want to fish?')"
+		 onblur="clickrecall(this, ' Where do you want to fish?')" />
+		</div>
+				
+		 <!-- Calendar  -->
+		<input id="date" type="text" name="date"
+		 value = " Date"
+		 onfocus="clickclear(this, ' Date')"
+		 onblur="clickrecall(this, ' Date')"/>
+
+		 <!-- Added by Sid: Hidden lat and lng inputs -->
+		 <input id="id_lat" type="hidden" name="lat"/>
+		 <input id="id_lng" type="hidden" name="lng"/>
+		
+		<!-- Submit -->
+		<input type="submit" id="button" value="Find a Guide" />
+
+		 </form>
+		 </div>
+
+	<hr id="line"/>
+	
+	<h2 id="easy_header">It's as easy as...</h2>
+
+	<div id="tri_box_wrap">
+	    <div class="tri_box">
+	        <h3>1. Find fishing guides nearby</h3>
+	        <img class="tri_pic" id="map" src="{{ MEDIA_URL }}images/index/m_map.png"/>
+	        <p id = "map_text">
+	       		Search our growing community of certified fishing guides by entering your location into the search bar above.  Find the top guides in your state, city, or nearby body of water.
+	        </p>
+	    </div>
+	    <div class="tri_box">
+	    	<h3>2. Pick the right one for you</h3>
+	        <img class="tri_pic" id="fish" src="{{ MEDIA_URL }}images/index/m_fish.png"/>
+	    	<p id = "fish_text">
+				There are many types of guides, just as there are many types of fishermen.  Compare and sort guides by price, fish species, client reviews, and many other important factors.
+			</p>
+		</div>
+	    <div class="tri_box">
+	        <h3>3. Book the trip, Hit the water!</h3>
+   	        <img class="tri_pic" id="calendar" src="{{ MEDIA_URL }}images/index/m_cal.png"/>
+	    	<p id = "cal_text">
+				Get simple, secure, and instant booking for your next fishing adventure.  Leave your wallet at home and pay online - just like a plane ticket or hotel room.
+			</p>
+	    </div>
+	</div> <!-- end tri_box_wrap -->
+
+
+{% endblock %}
+	     
+	 

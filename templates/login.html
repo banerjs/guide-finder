@@ -1,0 +1,114 @@
+{% extends "base.html" %}
+{% load url from future %}
+
+{% block head0 %}
+	<title>Signup</title>
+	<link href="{{ CSS_URL }}signup.css" rel="stylesheet" type="text/css" />
+	<script type="text/javascript" src="{{ JS_URL }}signup.js"></script>
+	<script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.min.js"></script>
+{% endblock %}
+
+{% block body0 %}
+	<a href="{{ DOMAIN }}">
+		<img id="logo-small" src="{{ MEDIA_URL }}logo_text.png"/>
+	</a>    
+
+	<div id="signin-wrap" class="span10">
+		<h1 id="signin-header">Sign up for a free account.</h1>	
+		<div id="open-id">
+			<p class="lead">Create your online profile today and get connected</p>
+
+			<div class="page-header">
+				<h1>
+					<small><strong>Get Social! </strong> Have an account on one of our partner sites?</small>
+				</h1>
+			</div>
+
+			<div id="oa-wrap">
+				<a href="{% url 'begin' "facebook" %}">
+    				<img class="openid-pic" id="fb_sign" src="{{ MEDIA_URL }}images/signin/fb_sign.png">
+    			</a>
+	    		<a href="{% url 'begin' "google-oauth2" %}">
+    				<img class="openid-pic" id="google_sign" src="{{ MEDIA_URL }}images/signin/google_sign.png">
+    			</a>
+	    		<a href="{% url 'begin' "yahoo" %}">
+		    		<img class="openid-pic" id="yahoo_sign" src="{{ MEDIA_URL }}images/signin/yahoo_sign.png">
+    			</a>
+	    		<a href="{% url 'begin' "twitter" %}">
+		    		<img class="openid-pic" id="twitter_sign" src="{{ MEDIA_URL }}images/signin/twitter_sign.png">
+    			</a>
+			</div><!--end wrap-->
+		</div><!--end openid-->
+		
+		<!--
+		<div id="reg-signin">
+			<h3 id="reg-title">Don't have an account with any of the above?</h3>
+			<p id="np">No problem, simply sign in below:</p>
+			<form method="post" action="{% url 'registration_register' %}">
+        		{% csrf_token %}
+				<table>
+					{{ form.as_table }}
+				</table>
+		 		<input type="submit" id= "create" value="Create my account" />
+				<input type="hidden" name="next" value="{{ next }}" />
+      		</form>
+		</div><!--end of regular signin-->	
+
+	</div> <!--end signup form -->
+
+
+
+
+	<div class="row">
+		<div class="page-header span10">
+			<h1>
+				<small><strong>No social accounts?</strong>No worries - sign up below.</small>
+			</h1>
+		</div>
+
+		<div id="signin-form" class="span10">
+			<form class="form-horizontal" id="registerHere" method='post' action="{% url 'auth_login' %}">
+				{% csrf_token %}
+				<fieldset>
+					<div class="control-group">
+						<label class="control-label">Name</label>
+						<div class="controls">
+							<input type="text" class="input-xlarge" id="user_name" name="user_name" rel="popover" data-content="Enter your first and last name." data-original-title="Full Name">
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label">Email</label>
+						<div class="controls">
+							<input type="text" class="input-xlarge" id="user_email" name="user_email" rel="popover" data-content="What’s your email address?" data-original-title="Email">
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label">Password</label>
+						<div class="controls">
+							<input type="password" class="input-xlarge" id="pwd" name="pwd" rel="popover" data-content="6 characters or more! Be tricky" data-original-title="Password">
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label">Verify Password</label>
+						<div class="controls">
+							<input type="password" class="input-xlarge" id="cpwd" name="cpwd" rel="popover" data-content="Re-enter your password for confirmation." data-original-title="Re-Password">
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label"></label>
+						<div class="controls">
+							<button type="submit" class="btn btn-success" >Create My Account</button>
+						</div>
+					</div>
+				</fieldset>
+			</form>
+		</div> <!--end signin-form -->
+	</div> <!--end row -->
+
+
+
+	<div id="sign-up">
+		<p>Already have a Guide Finder account? <a href="{% url 'auth_login' %}"> Click here to log in.</a></p>
+	</div>
+
+{% endblock %}

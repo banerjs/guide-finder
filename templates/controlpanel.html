@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% load url from future %}
+
+{% block head0 %}
+  <title>{{ user }}'s Control Panel</title>
+  <link href="{{ CSS_URL }}dashboard.css" rel="stylesheet" type="text/css" />
+{% endblock %}
+
+{% block body0 %}
+  <img id="logo_small" src="{{ MEDIA_URL }}logo_text.png" alt="" title="" />
+
+  <div id="command_center">
+
+  <h1>Control Panel</h1>
+
+  <p><b>Greetings{% if user.first_name %} {{ user.first_name|default:"Not provided" }}{% endif %}</b> - You are now logged in to The Guide Finder!</p>
+
+  <div id="for-guides">
+  <h3>Fishing Guide Business Solutions</h3>
+  <p>Increase your business with a free Guide Finder online profile.</p> <a>Find out more</a>
+  </div>
+
+
+
+  <div id="for-customers">
+  <h3>Find the Right Guide for you.</h3>
+  <p>Only with The Guide Finder can you get access to our growing database of expert fishing guides from around the country, and soon the world.</p>
+  </div>
+
+  {% include "messages/inbox.html" %}
+
+
+
+  
+  <div>
+    <a rel="nofollow" class="logout" href="{{ LOGOUT_URL }}">Logout</a>
+  </div>
+
+</div> <!--end command_center -->
+
+
+{% endblock %}

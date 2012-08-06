@@ -1,0 +1,89 @@
+{% extends "base.html" %}
+{% load url from future %}
+
+{% block head0 %}
+	<title>Signup</title>
+	<link href="{{ CSS_URL }}login.css" rel="stylesheet" type="text/css" />
+{% endblock %}
+
+{% block body0 %}
+	<a href="{{ DOMAIN }}">
+		<img id="logo-small" src="{{ MEDIA_URL }}logo_text.png"/>
+	</a>    
+
+	<h1 id="signin-header-log">Log in to your Guide Finder account.</h1>
+	<div class="lead link-log">
+		New to The Guide Finder? Create your <a href="http://test.theguidefinder.com//register">new account</a> today.
+	</div>
+
+	<div id="signin-wrap" class="span9">
+		<div id="open-id-log">
+			<div id="social-header">
+				<h3>Social</h3>
+			</div><!--end signin-header-->
+
+			<div id="oa-wrap-log">
+				<a href="{% url 'begin' "facebook" %}">
+    				<img class="openid-pic" id="fb_sign" src="{{ MEDIA_URL }}images/signin/fb_sign.png">
+    			</a>
+	    		<a href="{% url 'begin' "google-oauth2" %}">
+    				<img class="openid-pic" id="google_sign" src="{{ MEDIA_URL }}images/signin/google_sign.png">
+    			</a>
+	    		<a href="{% url 'begin' "yahoo" %}">
+		    		<img class="openid-pic" id="yahoo_sign" src="{{ MEDIA_URL }}images/signin/yahoo_sign.png">
+    			</a>
+	    		<a href="{% url 'begin' "twitter" %}">
+		    		<img class="openid-pic" id="twitter_sign" src="{{ MEDIA_URL }}images/signin/twitter_sign.png">
+    			</a>
+			</div><!--end wrap-->
+		</div><!--end openid-->
+
+		<div class="row-log span6">
+			<div id="reg-header">
+				<h3>Regular</h3>
+			</div><!--end signin-header-->
+			<div id="signin-form-log" class="span6">
+				<form class="form-horizontal" id="registerHere" method='post' action="{% url 'auth_login' %}">
+					{% csrf_token %}
+					<fieldset>
+						<div class="control-group">
+							<label class="control-label">Email</label>
+							<div class="controls">
+								<input type="text" class="input-xlarge" id="user_email" name="user_email" rel="popover" data-content="What’s your email address?" data-original-title="Email">
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label">Password</label>
+							<div class="controls">
+								<input type="password" class="input-xlarge" id="pwd" name="pwd" rel="popover" data-content="6 characters or more! Be tricky" data-original-title="Password">
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label"></label>
+							<div class="controls">
+								<button type="submit" class="btn btn-success" >Sign in</button>
+							</div>
+						</div>
+					</fieldset>
+				</form>
+			</div> <!--end signin-form -->
+		</div> <!--end row -->
+
+
+		<!--
+		<div id="reg-signin">
+			<h3 id="reg-title">Don't have an account with any of the above?</h3>
+			<p id="np">No problem, simply sign in below:</p>
+			<form method="post" action="{% url 'registration_register' %}">
+        		{% csrf_token %}
+				<table>
+					{{ form.as_table }}
+				</table>
+		 		<input type="submit" id= "create" value="Create my account" />
+				<input type="hidden" name="next" value="{{ next }}" />
+      		</form>
+		</div><!--end of regular signin-->	
+
+	</div> <!--end signup form -->
+
+{% endblock %}

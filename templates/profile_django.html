@@ -1,0 +1,345 @@
+{% extends "base.html" %}
+
+{% block head0 %}
+
+<title>Profile of {{ guide.guide.customer.first_name }} {{ guide.guide.customer.last_name }}</title>
+    
+<link href="{{ CSS_URL }}profile.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
+
+{% endblock %}
+
+{% block body0 %}
+
+<div class="profile_left">
+
+  <a href="{{ DOMAIN }}" id="logo_link">
+    <img id="logo_small" src="{{ MEDIA_URL }}logo_text.png"/>
+  </a>    
+
+
+  <div id="contact_box">
+
+  <a href="javascript:history.go(-1)">
+    <div class= "back">
+      <img src="{{ MEDIA_URL }}images/profile/backarrow.png"/>
+      <p>Back to Search Results</p>
+    </div>
+  </a>
+    
+
+
+    <img src="{{ MEDIA_URL }}images/profile/fish_profile.png">
+    <div id="button_wrap">
+      <a class="btn btn-large btn-primary" data-toggle="modal" href="#myModal">
+        <i class="icon-envelope icon-white"> </i>   Contact this Guide
+      </a>
+    </div>
+  </div>
+
+  <div class="modal hide fade" id="myModal">
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal">×</button>
+      <h3>Contact Michael</h3>
+    </div>
+    <form id="contact form" name="myForm" onsubmit="return validateForm()">
+      <div class="modal-body">
+          <img id="contact_logo" src="{{ MEDIA_URL }}logo.png">
+          <label for="name" class="prompt">Name:</label>
+          <input type="text" class="info" name="name"/>
+          <label for="email" class="prompt">Email:</label>
+          <input type="text" class="info" name="email"/>
+          <label for="msg" class="prompt">Write your message:</label>
+          <textarea name="msg" class="message"></textarea>
+      </div>
+      <div class="modal-footer">
+        <input type="submit" class="btn btn-primary" value="Send Message"></a>
+      </div>
+    </form>
+  </div>
+
+  <!-- Fishing Type Table -->
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th><h3>Fishing Type:</h3></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Trolling</td>
+      </tr>
+      <tr>
+        <td>Baitcasting</td>
+      </tr>
+      <tr>
+        <td>Ice fishing</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- Fish Species Table -->
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th><h3>Fish Species:</h3></th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for fish in guide.fish.all %}
+        <tr>
+            <td>
+              {{ fish.name }}
+              <img style = "height: 33px; float: right;" src="{{ MEDIA_URL }}/images/profile/fish/{{ fish.name }}.png">
+          </td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>    
+
+</div><!--end profile_left -->
+
+<div class = "profile_right span8">
+
+  <div id="profile_header">
+    <div id="header_left">
+      <h1 id="guide_name"> {{ guide.person.full_name }} </h1>
+      <h3 id="guide_loc">{{ guide.person.contact.city }}, {{ guide.person.contact.state.key }}, {{ guide.person.contact.country.abbr }}</h3>
+    </div>
+    <div id="header_right">
+      <img id="badge" src="{{ MEDIA_URL }}profile/alpha-badge.png" rel="popover" data-content="{{ guide.person.full_name }} was an Alpha tester" data-original-title="Alpha Tester Badge">
+    </div>
+  </div><!--end profile header -->
+
+  <div id="myCarousel" class="carousel slide">
+    <!-- Carousel items -->
+    <div class="carousel-inner">
+      <div class="active item">
+        <img alt="" src="http://www.smitten.com/assets/photo1.jpg" />
+        <div class="carousel-caption"><p>Caption 1</p></div>
+      </div>
+      <div class="item">
+         <img alt="" src="http://www.smitten.com/assets/photo2.jpg" />
+          <div class="carousel-caption"><p>Caption 2</p></div>
+      </div>
+    </div>
+    
+    <!-- Carousel nav -->
+    <a class="carousel-control left" href="#myCarousel" data-slide="prev">&lsaquo;</a>
+    <a class="carousel-control right" href="#myCarousel" data-slide="next">&rsaquo;</a>
+  </div>
+
+  <span id = "tribox_wrap">
+    <div class="tribox price">
+      <h1>$500</h1>
+      <h4>Average price per trip</h4>
+    </div>
+
+    <div class="tribox experience">
+      <h1>21</h1>
+      <h4>Years of Experience</h4>
+    </div>
+
+    <div class="tribox party_size">
+      <h1>1-to-5</h1>
+      <h4>Customers per trip</h4>
+    </div>
+  </span>
+  
+  <div id="full-guide-info">
+    <p>{{ guide.person.blurb }}</p>
+  </div>
+    
+  <table id="my_table">
+    <thead>
+        <h3 id="table_header">Guide Facts</h2>
+    </thead>
+    <tbody>
+      <tr>
+        <td>
+          <p>
+            <img class="yes" src="{{ MEDIA_URL }}yes.png"/>
+            Kid Friendly
+          </p>
+        </td>
+        <td>
+          <p>
+            <img class="yes" src="{{ MEDIA_URL }}yes.png"/>
+            State Certified
+          </p>
+        </td>
+        <td>
+          <p>
+            <img class="no" src="{{ MEDIA_URL }}no.png"/>
+            Coast Guard Certified
+          </p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p>
+            <img class="no" src="{{ MEDIA_URL }}no.png"/>
+            Fillet services included
+          </p>
+        </td>
+        <td>
+          <p>
+            <img class="no" src="{{ MEDIA_URL }}no.png"/>
+            Taxidery services available
+          </p>
+        </td>
+        <td>
+          <p>
+            <img class="yes" src="{{ MEDIA_URL }}yes.png"/>
+            Alcohol Allowed
+          </p>
+        </td>
+      </tr>
+    <tr>
+      <td>
+        <p>
+          <img class="yes" src="{{ MEDIA_URL }}yes.png"/>
+          Food Provided
+        </p>
+      </td>
+      <td>
+        <p>
+          <img class="no" src="{{ MEDIA_URL }}no.png"/>
+          Equitment Provided
+        </p>
+      </td>
+      <td>
+        <p>
+          <img class="yes" src="{{ MEDIA_URL }}yes.png"/>
+          Handicapped Accessible
+        </p>
+      </td>
+    </tr>
+  </table>
+
+  <ul class="nav nav-tabs" id="myTab">
+    <li class="active">
+      <a href="#prof_map" data-toggle="tab">Map</a>
+    </li>
+    <li>
+      <a href="#packing_list" data-toggle="tab">Packing List</a>
+    </li>
+    <li>
+      <a href="#guide_gear" data-toggle="tab">Guide Gear</a>
+    </li>
+  </ul> <!--end nav tabs -->
+
+  <div class="tab-content">
+    <div class="tab-pane fade active in" id="prof_map">
+      <div id="map_canvas">
+        <h2>Map will be here.</h2>
+      </div>
+    </div>
+
+    <div id="tab_divider">
+    </div>
+
+    <div class="tab-pane fade" id="packing_list">
+      <div id="to-bring">
+        <img class="thumb"src="{{ MEDIA_URL }}profile/like.jpg"/>
+        <h2 class="packing_header">What to bring along</h2>
+          <ul class="item_list">
+            <li>Hat</li>
+            <li>Sunscreen</li>
+            <li>Lunch</li>
+            <li>Rain Jacket</li>
+            <li>Close-toed Shoes</li>
+            <li>Good Attitude!!</li>
+          </ul>     
+      </div>
+      <div id="not-bring">
+        <img class="thumb" src="{{ MEDIA_URL }}profile/dislike.jpg"/>
+        <h2 class="packing_header">What NOT to bring</h2>          
+        <ul class="item_list">
+          <li>Illegal substances</li>
+          <li>Glass Bottles</li>
+          <li>Alcohol</li>
+          <li>Bananas</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="tab-pane fade" id="guide_gear">
+      <ul id="equipment">
+        <li>
+          <h5>Boat</h5>
+          <img src="{{ MEDIA_URL }}/images/brands/boats/ranger.png">
+        </li>
+        <li>
+          <h5>Reel</h5>
+          <img src="{{ MEDIA_URL }}/images/brands/reel/berkley.png">
+        </li>
+        <li>
+          <h5>Bait</h5>
+          <img src="{{ MEDIA_URL }}/images/brands/bait/rapala.png">         
+        </li>
+        <li>
+          <h5>Line</h5>
+          <img src="{{ MEDIA_URL }}/images/brands/line/fireline.png">
+        </li>
+        <li>
+          <h5>Rod</h5>
+          <img src="{{ MEDIA_URL }}/images/brands/rod/uglystick.png">
+        </li>
+        <li>
+          <h5>Outerwear</h5>
+          <img src="{{ MEDIA_URL }}/images/brands/outerwear/northface.png">
+        </li>
+      </ul>   
+    </div>
+  </div> <!--end tabbed content -->
+ 
+  <div id="testimonial">
+    <img id="speech_bubble" src="{{ MEDIA_URL }}/images/profile/conversation.png">
+    <h1>Testimonials</h1>
+    {% if guide.review_list %}
+       {% for review in guide.review_list %}
+          <blockquote>
+            <p>
+              {{ review.quote }}
+            </p>
+            <small>
+              {{ review.name }}
+            </small>
+          </blockquote>
+       {% endfor %}
+    {% else %} 
+      Sorry, no reviews available yet...
+    {% endif %}
+
+    <blockquote class="block_quote">
+      <p>ZOMG I love this guide.  This isn't a real testimonial though, that's coming soon............</p>
+      <small> Buzz Foobar </small>
+    </blockquote>
+  </div> <!--end testimonial -->  
+</div> <!-- end profile_right -->
+
+<script type="text/javascript">
+  
+  $(function() {
+    $('#myCarousel').carousel({
+       interval: 5000
+    });
+    
+    $('#badge').popover({
+      placement: 'bottom'
+      });
+
+    $(".collapse").collapse();
+
+    $('#myTab a').click(function (e) {
+      e.preventDefault();
+      $(this).tab('show');
+    })
+
+    $('#myModal').modal('hide')
+  });
+</script>
+
+
+{% endblock %} <!-- end main0 -->

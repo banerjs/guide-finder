@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block head0 %}
+		<link href="{{ CSS_URL }}contact.css" rel="stylesheet" type="text/css" />
+		<title>TheGuideFinder: Contact</title>
+{% endblock %}
+
+{% block body0 %}
+		<h1 id="heading">Question? Comments?</h1><br/>
+		<h3>Drop us a line and we'll get right back to you...</h3>
+		 
+		<form id="contact form" action="{{ DOMAIN }}thanks/" method="post" style="margin-left:50px;">{% csrf_token %}
+			<label for="name" class="prompt">Name:</label>
+			<input type="text" class="info" name="name"/><br/>
+			<label for="email" class="prompt">Email:</label>
+			<input type="text" class="info" name="email"/><br/><br/>
+			<!--<label for="msg" class="prompt">Message:</label><br />-->
+			<textarea name="msg" class="message" rows="6" cols="41"></textarea><br/><br/>
+			<input type="submit" class="submit" value=""/><br/><br/><br/><br/><br/><br/><br/><br/>
+		<!-- end of #contact form --></form>
+{% endblock %}

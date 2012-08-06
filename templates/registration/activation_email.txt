@@ -1,0 +1,14 @@
+{% load url from future %}
+Congratulations!  Your Guide Finder account has been created.
+
+Username: {{ username }}
+
+
+Click the following link to activate your account and log on:
+
+{{ DOMAIN }}{% url 'registration_activate' activation_key %}
+
+
+Happy Fishing,
+
+The Guide Finder Team

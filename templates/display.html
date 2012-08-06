@@ -1,0 +1,240 @@
+{% extends "base.html" %}
+
+{% block head0 %}
+		<!-- CSS -->
+		<link href="{{ CSS_URL }}display.css" rel="stylesheet" type="text/css" />
+        <link type="text/css" href="{{ MEDIA_URL }}jQueryUI/themes/start/jquery-ui-1.8.13.custom.css" rel="stylesheet"/>
+		<link rel="stylesheet" type="text/css" href="{{ CSS_URL }}jquery.autocomplete.css" />
+		<!-- jQuery and Javascript -->		
+		<script type="text/javascript" src="{{ MEDIA_URL }}jQueryUI/jquery-1.5.1.js"></script>	
+		<script type="text/javascript" src="http://code.jquery.com/jquery-1.6.1.min.js"></script>
+		<script type="text/javascript" src="{{ MEDIA_URL }}jQueryUI/ui/jquery-ui-1.8.13.custom.js"></script>
+		<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
+		<script type="text/javascript" src="{{ JS_URL }}jquery.ajaxQueue.js"></script>
+		<script type="text/javascript" src="{{ JS_URL }}jquery.bgiframe.min.js"></script>
+		<script type="text/javascript" src="{{ JS_URL }}jquery.js"></script>
+		<script type="text/javascript" src="{{ JS_URL }}jquery.autocomplete.js"></script>
+		<script>
+    			jq = jQuery.noConflict(true);
+		</script>
+		<script type="text/javascript" src="{{ JS_URL }}display.js"></script>
+		
+		<title>Search Results Page</title>
+{% endblock %}
+
+
+{% block body0 %}
+	<div class="container-fluid">
+        <div class="row-fluid">
+
+        	<div id="left-panel" class="span3">
+				<a href="{{ DOMAIN }}">
+					<img id="logo-small" src="{{ MEDIA_URL }}logo.png"/>
+				</a>    
+                <div id="map_canvas"></div> 
+                <div id="adv_search">
+                	<h2> Advanced Search </h2>
+		                <!-- Fish Type -->
+                        <div class="ui-widget">
+                            <label>Fish Species:</label>
+                            <select id="fish_species">
+                                <option value="">No Preference</option>
+                                <option value="walleye">Walleye</option>
+                                <option value="bass">Bass</option>
+                                <option value="perch">Perch</option>
+                                <option value="bluegill">Bluegill</option>
+                                <option value="shark">Shark</option>
+                                <option value="tuna">Tuna</option>
+                                <option value="pike">Pike</option>
+                                <option value="barracuda">Barracuda</option>		
+                            </select>
+                        </div>
+                        <div class="ui-widget">
+                            <label>Fishing Type</label>
+                            <select id="fishing_type">
+                                <option value="">No Preference</option>	
+                                <option value="fly">Fly Fishing</option>
+                                <option value="troll">Trolling</option>
+                                <option value="kayak">Kayak Fishing</option>
+                                <option value="lure">Lure Fishing</option>
+                                <option value="ice">Ice Fishing</option>
+                            </select>
+                        </div>
+	                   	<!--Price-->
+                    	<p id="price_range">
+               	    		<label for="price_amount">Price range:</label>
+                	    </p>
+                    	<p id="price_amount"></p>
+                    	<div id="slider-range"></div>
+            
+    	                <!--Salt or Fresh-->
+                    	<form>
+                        	<p id="water_type">Water Type</p>
+                        	<div id="radio">
+                        	    <input type="radio" id="radio1" name="radio" /><label for="radio1">Salt</label>
+                        	    <input type="radio" id="radio2" name="radio"  /><label for="radio2">Fresh</label>
+                        	    <input type="radio" id="radio3" name="radio" checked="checked"/><label for="radio3">Either</label>
+                        	</div>
+                    	</form>
+		
+		                <div class="advanced">
+        		        	<div id="dialog" title="Advanced Search Options">
+                	    		<form id="advanced_search" action="javascript:closePopup();" method="get">
+                            		<ul id="advanced_list">
+                                		<li>
+                                    		<input type="checkbox" id="kid_friendly" name="kid_friendly" value="kid_friendly">
+                                    		<label for="kid_friendly">Kid Friendly</label>
+                                		</li>
+                                		<li>
+                                    		<input type="checkbox" id="equipment_provided" name="equipment_provided" value="equipment_provided">
+                                    		<label for="equipment_provided">Equipment Provided</label>
+                                		</li>
+                                		<li>
+                                    		<input type="checkbox" id="alcohol_allowed" name="alcohol_allowed" value="alcohol_allowed">
+                                    		<label for="alcohol_allowed">Alcohol Allowed</label>
+                                		</li>
+                                		<li>
+                                    		<input type="checkbox" id="state_certified" name="state_certified" value="state_certified">
+                                    		<label for="state_certified">State Certified</label>
+                                		</li>
+                                		<li>
+                                    		<input type="checkbox" id="fillet_service" name="fillet_service" value="fillet_service">
+                                    		<label for="fillet_service">Fillet Services Included</label>
+                                		</li>
+                                		<li>
+                                    		<input type="checkbox" id="food" name="food" value="food">
+                                    		<label for="food">Food Provided</label>
+                                		</li>
+		                                <li>
+		                                    <input type="checkbox" id="coast_guard" name="coast_guard" value="coast_guard">
+		                                    <label for="coast_guard">Coast Guard Certified</label>
+		                                </li>
+		                                <li>
+		                                    <input type="checkbox" id="taxidermy" name="taxidermy" value="taxidermy">
+		                                    <label for="taxidermy">Taxidermy Services Available</label>
+		                                </li>
+		                                <li>
+		                                    <input type="checkbox" id="handicapped" name="handicapped" value="handicapped">
+		                                    <label for="handicapped">Handicapped Accessible</label>
+		                                </li>
+		                            </ul>
+		                    		<div>
+    		                    		<a href="javascript:void(0);" onclick="closePopup();">Cancel</a> 
+        		                		<input id="advanced_submit" type="submit" value="Search">
+                					</div>
+                	        	</form>
+                    		</div>
+                		</div>
+                	</div>
+                	<button id="opener">Advanced Search Options</button>
+			</div> <!--end left panel -->
+
+			<div id="right-panel" class="span8">
+                <div id="display_header" class="span8">
+                   <form id="search_form" action="{{ DOMAIN }}display/" method="get">
+                            <!-- Location -->
+                            <input id = "display_loc" class="span5" type= "text" name="loc"
+                            value = "{{ request.GET.loc }}" onfocus="clickclear(this, ' city, state, country')"
+                            onblur="clickrecall(this, ' city, state, country')"/>
+                        
+                            <!-- Calendar  -->
+                            <input type="text" name="date" id="date" class="span2"  
+                            value = "{{ request.GET.date }}"
+                            onfocus="clickclear(this, ' Date')"
+                            onblur="clickrecall(this, ' Date')" />
+                    
+                            <!-- Added by Sid: Hidden inputs -->
+                            <input type="hidden" name="lat" id="id_lat" />
+                            <input type="hidden" name="lng" id="id_lng" />
+                    
+                            <!-- Submit -->
+                            <input type="submit" id="button" value="Search" class="btn-large"/>
+                    </form>
+                </div><!--end of display header-->
+                
+                <!--Sort Bar-->
+                <div id="sort-bar">
+                    <h3 class="span2"> Sort guides by:</h3>
+                    <form>
+                        <div id="sort-drop">
+                            <select id="sort-by">
+                                <option>Recommended</option>
+                                <option>Price</option>
+                                <option>Distance</option>
+                            </select>
+                        </div>
+                    </form>
+                </div><!--end sort bar-->
+
+                <div id="results_filters">
+                    <div id="filters_text">
+                        Filters: 
+                    </div>
+                    <ul id = "applied_filters">
+                        <li id = "applied_filter_fish_species" class = "hide">
+                            <span class="af_text">Fish Species</span>
+                        <a class="filter_x_container">
+                            <div class="filter_x"></div>
+                        </a>
+                        </li>
+                        <li id = "applied_filter_price" class = "left hide">
+                            <span class="af_text">Price</span>
+                        <a class="filter_x_container">
+                            <div class="filter_x"></div>
+                        </a>
+                        </li>
+                    </ul>
+                </div>
+                    
+                <!-- loop over all guides -->
+                <div class="all_guides span8" id="stuff">
+	                {% if guides_list %}
+	             
+		                {% for guide in guides_list %}
+		                	<div class="guide_wrap">
+								<a href="{{ guide.person.get_pretty_url }}"><img class="guide_pic" src="{{ guide.profile.cust_profile.profile_pic.thumb.url }}"/></a>
+		                        
+                                <div class="guide_loc"><p>{{ guide.person.contact.city }}, {{ guide.person.contact.state.key }}, {{ guide.person.contact.country.abbr }}</p></div>
+                            
+                                {% if guide.company %}
+		                        	<a href="{{ guide.person.get_pretty_url }}"><div class="guide_biz"><strong>{{ guide.company }}</strong></div></a>
+		                            <div class="guide_name_biz">(Guide: {{ guide.person.full_name }})</div>
+		                        {% else %}
+		                       	    <a href="{{ guide.person.get_pretty_url }}"><div class="guide_name"><strong>{{ guide.person.full_name }}</strong></div></a>
+		                        {% endif %}
+		                     
+			                	<div class="guide_info">
+		                            <p class="info_p"><b>Specialties:</b> {% for fish in guide.fish.all %}{{ fish.name }}{% if not forloop.last %}, {% endif %}{% endfor %}</p>
+
+		                            <p class="info_p"><b>Pricing: </b>Full Day = &#36;{{ guide.full_day_price }}</p>
+
+		                            <p class="info_p"><b>Years of Experience: </b>{{ guide.experience }}</p>
+				                            <script type = "text/javascript"> 
+				                                var csc = "{{ guide.person.contact.city }}, {{ guide.person.contact.state.key }}, {{ guide.person.contact.country.abbr }}";
+				                                newLocations.push(csc);
+				                            </script>
+			                 	</div><!-- end guide_info -->   
+			                 </div><!-- end guide_wrap -->
+
+		                {% endfor %}
+	            
+	                {% else %}<!-- if search has no matches -->
+	                
+	                	<div id="empty_wrap">
+	                    <h2>Sorry, your search didn't hook any guides...</h2>
+	                    <img src="{{ MEDIA_URL }}blob.jpg" alt="sad fish" width="304"/>
+	                    <p>Perhaps try broadening your search by only specifying an area, or picking your own hometown to see a picture of yourself (coming soon...)</p>
+	                	</div>
+	                     
+	                {% endif %}
+            	</div><!-- end all_guides -->
+                
+            	<script type = "text/javascript">
+                	initialize("{{ request.GET.loc }}");
+            	</script>
+            </div><!--end right-panel -->
+
+    	</div> <!--end row-fluid -->     
+    </div> <!-- end container-fluid -->
+
+{% endblock %}<!--end body0-->

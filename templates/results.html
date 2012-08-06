@@ -1,0 +1,88 @@
+{% if guides_list %}
+ 	<br/>
+
+	{% for guide in guides_list %}
+
+	<div class="guide-box">
+		<div class="title-wrap">
+            {% if guide.comapany %}
+                <div class="guide-biz"><b>{{ guide.company }}</b></div>
+                <div class="guide_name_biz"><b>(Guide: {{ guide.person.full_name }})</div></b>
+            {% else %}
+                <div class="guide_name"><b>{{ guide.person.full_name }}</div></b>
+            {% endif %}
+        
+            <div class="guide-loc"><p><b>{{ guide.person.contact.city }}, {{ guide.person.contact.state.key }}, {{ guide.person.contact.country.abbr }}</b></p></div>
+        </div><!--end title wrap-->	
+        	
+		<script type = "text/javascript"> 
+        	var newLoc = "{{ guide.person.contact.city }}, {{ guide.person.contact.state.key }}, {{ guide.person.contact.country.abbr }}";
+			ajaxLocations.push(newLoc);
+			var z = 0;
+			for (var i = 0; i < newLocations.length; i++)
+				{
+					if(newLocations[i] == newLoc) z++;
+			    }
+			if (z == 0) 
+				{
+					codeAddress(newLoc);
+					newLocations.push(newLoc);
+				}
+ 		</script>
+
+		<div class=guide_pic><img src="{{ guide.profile.cust_profile.profile_pic.thumb.url }}" width="200" height="125"/></div>
+
+	    <a href="{{ guide.person.get_pretty_url }}">
+	       <p id="full-link">View Full Profile</p>
+	    </a>
+        	
+		<p><b>Specialties:</b> {% for fish in guide.fish.all %}{{ fish.name }}{% if not forloop.last %}, {% endif %}{% endfor %}</p>
+		<p><b>Pricing:</b>Full Day = &#36;{{ guide.full_day_price }}</p>
+		<p><b>Years of Experience: </b>{{ guide.experience }}</p>
+				
+<p>{{ guide.profile.blurb }}</p>
+
+<br>
+     {% endfor %}	
+	<script type = "text/javascript">
+		if (ajaxLocations.length != newLocations.length)
+		{
+			 for(var j = 0; j < markers.length; j++) {
+          			markers[j].setMap(null);
+          		  }
+			 markers.length = 0;
+			 markerLocations.length = 0;
+			 newLocations.length = 0;
+			 for(var k = 0; k < ajaxLocations.length; k++)
+			 {
+				codeAddress(ajaxLocations[k]);
+				newLocations.push(ajaxLocations[k]);
+			 }
+			 ajaxLocations.length = 0;
+		}
+	</script>
+
+	{% else %}
+     <!-- if search has no matches -->
+
+     <div id ="nr_info">
+	<br/>
+	<br/>
+	<br/>
+     	<h2>Sorry, your search didn't hook any guides...</h2><br/>
+	<br/>
+	<br/>
+	<img src="{{ MEDIA_URL }}blob.jpg" alt="sad fish" width="304"/>
+	<br/>
+	<br/>
+	<br/>
+	<p style="max-width: 500px; text-indent: 50px;">Perhaps try broadening your search by only specifying an area, or picking your own hometown to see a picture of yourself (coming soon...)</p>
+	<br/>
+	<br/>
+	<br/>     
+</div>
+
+     
+     {% endif %}
+
+	
