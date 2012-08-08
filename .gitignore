@@ -4,6 +4,7 @@
 old_*
 backup_*
 /*settings.py
+/TODO.txt
 migrations/
 
 # Compiled source #
