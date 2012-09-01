@@ -1,5 +1,4 @@
 # Used for generic templates
-#TROLOLOLOLOLOL
 from django.views.generic import TemplateView
 from django.core.mail import send_mail
 from django.http import HttpResponse
